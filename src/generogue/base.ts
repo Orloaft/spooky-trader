@@ -10,43 +10,43 @@ export const URL_PARAM_CLEAR_SAVEGAME: string = "clearsavegame";
 // rendering
 export const MENU_BACKGROUND: Core.Color = 0x272822;
 export const MENU_BACKGROUND_ACTIVE: Core.Color = 0x383830;
-export const MENU_FOREGROUND: Core.Color = 0xFD971F;
-export const MENU_FOREGROUND_ACTIVE: Core.Color = 0xFFDF90;
-export const MENU_FOREGROUND_DISABLED: Core.Color = 0x5C714B;
-export const TITLE_FOREGROUND: Core.Color = 0xFFFFFF;
-export const HEALTH_BAR_BACKGROUND: Core.Color = 0xFF3F3F;
-export const HEALTH_BAR_FOREGROUND: Core.Color = 0x7F3F3F;
-export const XP_BAR_BACKGROUND: Core.Color = 0x9F3FFF;
-export const XP_BAR_FOREGROUND: Core.Color = 0x3F007F;
-export const CONDITION_BAR_BACKGROUND: Core.Color = 0x3F9F3F;
-export const CONDITION_BAR_FOREGROUND: Core.Color = 0x007F3F;
+export const MENU_FOREGROUND: Core.Color = 0xfd971f;
+export const MENU_FOREGROUND_ACTIVE: Core.Color = 0xffdf90;
+export const MENU_FOREGROUND_DISABLED: Core.Color = 0x5c714b;
+export const TITLE_FOREGROUND: Core.Color = 0xffffff;
+export const HEALTH_BAR_BACKGROUND: Core.Color = 0xff3f3f;
+export const HEALTH_BAR_FOREGROUND: Core.Color = 0x7f3f3f;
+export const XP_BAR_BACKGROUND: Core.Color = 0x9f3fff;
+export const XP_BAR_FOREGROUND: Core.Color = 0x3f007f;
+export const CONDITION_BAR_BACKGROUND: Core.Color = 0x3f9f3f;
+export const CONDITION_BAR_FOREGROUND: Core.Color = 0x007f3f;
 export const INVENTORY_BACKGROUND_ACTIVE: Core.Color = 0x383830;
-export const INVENTORY_FOREGROUND_ACTIVE: Core.Color = 0xFFDF90;
+export const INVENTORY_FOREGROUND_ACTIVE: Core.Color = 0xffdf90;
 export const INVENTORY_BACKGROUND_EQUIPPED: Core.Color = 0x585850;
-export const LOG_INFO_COLOR: Core.Color = 0xEEEEEE;
-export const LOG_WARN_COLOR: Core.Color = 0xFFA500;
-export const LOG_CRIT_COLOR: Core.Color = 0xFF2222;
-export const TILEPICKER_OK_COLOR: Core.Color = 0x00FF00;
-export const TILEPICKER_KO_COLOR: Core.Color = 0xFF2222;
+export const LOG_INFO_COLOR: Core.Color = 0xeeeeee;
+export const LOG_WARN_COLOR: Core.Color = 0xffa500;
+export const LOG_CRIT_COLOR: Core.Color = 0xff2222;
+export const TILEPICKER_OK_COLOR: Core.Color = 0x00ff00;
+export const TILEPICKER_KO_COLOR: Core.Color = 0xff2222;
 
 // some material colors
-export const DARK_WOOD_COLOR: Core.Color = 0x2C1E14;
-export const WOOD_COLOR: Core.Color = 0x7D320B;
-export const LIGHT_COLOR: Core.Color = 0xDF9F48;
-export const IVORY_COLOR: Core.Color = 0xDFD8BB;
-export const PAPER_COLOR: Core.Color = 0xC4D67E;
-export const BONE_COLOR: Core.Color = 0xFFD184;
-export const IRON_COLOR: Core.Color = 0x7B7D7A;
+export const DARK_WOOD_COLOR: Core.Color = 0x2c1e14;
+export const WOOD_COLOR: Core.Color = 0x7d320b;
+export const LIGHT_COLOR: Core.Color = 0xdf9f48;
+export const IVORY_COLOR: Core.Color = 0xdfd8bb;
+export const PAPER_COLOR: Core.Color = 0xc4d67e;
+export const BONE_COLOR: Core.Color = 0xffd184;
+export const IRON_COLOR: Core.Color = 0x7b7d7a;
 export const STEEL_COLOR: Core.Color = 0x828388;
-export const BRONZE_COLOR: Core.Color = 0x925C1E;
-export const SILVER_COLOR: Core.Color = 0x9A938D;
-export const GOLD_COLOR: Core.Color = 0xC49E2C;
-export const CANDLE_LIGHT_COLOR: Core.Color = 0xDDDD44;
-export const TORCH_LIGHT_COLOR: Core.Color = 0xFFFF44;
-export const SUNROD_LIGHT_COLOR: Core.Color = 0xEEEEFF;
+export const BRONZE_COLOR: Core.Color = 0x925c1e;
+export const SILVER_COLOR: Core.Color = 0x9a938d;
+export const GOLD_COLOR: Core.Color = 0xc49e2c;
+export const CANDLE_LIGHT_COLOR: Core.Color = 0xdddd44;
+export const TORCH_LIGHT_COLOR: Core.Color = 0xffff44;
+export const SUNROD_LIGHT_COLOR: Core.Color = 0xeeeeff;
 export const NOLIGHT_COLOR: Core.Color = 0x444444;
 export const HEALTH_POTION_COLOR: Core.Color = 0x800080;
-export const OIL_FLASK_COLOR: Core.Color = 0xAF5320;
+export const OIL_FLASK_COLOR: Core.Color = 0xaf5320;
 
 // gui
 export const LOG_DARKEN_COEF: number = 0.8;
@@ -58,8 +58,8 @@ export const CONTAINER_SCREEN_MIN_HEIGHT: number = 16;
 // map building
 export const ROOM_MAX_SIZE: number = 8;
 export const ROOM_MIN_SIZE: number = 4;
-export const DUNGEON_MAX_TORCHES: number = 10;
-export const DUNGEON_MIN_TORCHES: number = 4;
+export const DUNGEON_MAX_TORCHES: number = 100;
+export const DUNGEON_MIN_TORCHES: number = 40;
 
 // gameplay
 // how often the world is updated
@@ -92,15 +92,15 @@ export const EVENT_NEW_GAME: string = "NEW_GAME";
 export const EVENT_CHANGE_STATUS: string = "CHANGE_STATUS";
 
 export const enum GameStatus {
-    INITIALIZING = 1,
-    // go to next level
-    NEXT_LEVEL,
-    // game is running
-    RUNNING,
-    // force a new turn, then goes back to RUNNING or DEFEAT if player died
-    NEXT_TURN,
-    // player won
-    VICTORY,
-    // player died
-    DEFEAT
+  INITIALIZING = 1,
+  // go to next level
+  NEXT_LEVEL,
+  // game is running
+  RUNNING,
+  // force a new turn, then goes back to RUNNING or DEFEAT if player died
+  NEXT_TURN,
+  // player won
+  VICTORY,
+  // player died
+  DEFEAT,
 }

@@ -1,12 +1,12 @@
 import * as Core from "../core/main";
 import * as Umbra from "../umbra/main";
-import {Actor} from "./actor";
+import { Actor } from "./actor";
 
 // unlimited fov
 export const FOV_RADIUS: number = 0;
 
 // some material colors
-export const FROST_COLOR: Core.Color = 0xE0E0FF;
+export const FROST_COLOR: Core.Color = 0xe0e0ff;
 
 // gameplay
 export const LIGHT_NORMAL_RANGE_FACTOR = 1 / 20;
@@ -40,42 +40,47 @@ export const PERSISTENCE_ACTORS_SEQ_KEY: string = "actorsSeq";
 export const EVENT_LIGHT_ONOFF: string = "LIGHT_ONOFF";
 
 export interface INumberSelector {
-    selectNumber(message: string, minValue: number, maxValue: number, initialValue?: number): Promise<number>;
+  selectNumber(
+    message: string,
+    minValue: number,
+    maxValue: number,
+    initialValue?: number
+  ): Promise<number>;
 }
 
 export enum PlayerActionEnum {
-/** empty action. still triggers a new turn */
-NOACTION = 1,
-MOVE_NORTH,
-MOVE_SOUTH,
-MOVE_EAST,
-MOVE_WEST,
-MOVE_NW,
-MOVE_NE,
-MOVE_SW,
-MOVE_SE,
-MOVE_UP,
-MOVE_DOWN,
-WAIT,
-GRAB,
-USE_ITEM,
-DROP_ITEM,
-THROW_ITEM,
-FIRE,
-ZAP,
-SELECT_TILE,
-SELECT_ITEM,
-ACTIVATE,
-VALIDATE,
-CANCEL
+  /** empty action. still triggers a new turn */
+  NOACTION = 1,
+  MOVE_NORTH,
+  MOVE_SOUTH,
+  MOVE_EAST,
+  MOVE_WEST,
+  MOVE_NW,
+  MOVE_NE,
+  MOVE_SW,
+  MOVE_SE,
+  MOVE_UP,
+  MOVE_DOWN,
+  WAIT,
+  GRAB,
+  USE_ITEM,
+  DROP_ITEM,
+  THROW_ITEM,
+  FIRE,
+  ZAP,
+  SELECT_TILE,
+  SELECT_ITEM,
+  ACTIVATE,
+  VALIDATE,
+  CANCEL,
 }
 
-export let getLastPlayerAction = function(): PlayerActionEnum|undefined {
-    let lastActionName: string|undefined = Umbra.getLastAxisName();
-    if ( lastActionName ) {
-        return (<any> PlayerActionEnum)[lastActionName];
-    }
-    return undefined;
+export let getLastPlayerAction = function (): PlayerActionEnum | undefined {
+  let lastActionName: string | undefined = Umbra.getLastAxisName();
+  if (lastActionName) {
+    return (<any>PlayerActionEnum)[lastActionName];
+  }
+  return undefined;
 };
 
 /**
@@ -84,40 +89,43 @@ export let getLastPlayerAction = function(): PlayerActionEnum|undefined {
  * Returns:
  * the Core.Position containing the movement, 0,0 if the action is not a movement action
  */
-export let convertActionToPosition = function(action: PlayerActionEnum): Core.Position {
-    let move: Core.Position = new Core.Position(0, 0);
-    switch (action) {
-        case PlayerActionEnum.MOVE_NORTH:
-            move.y = -1;
-            break;
-        case PlayerActionEnum.MOVE_SOUTH:
-            move.y = 1;
-            break;
-        case PlayerActionEnum.MOVE_EAST:
-            move.x = 1;
-            break;
-        case PlayerActionEnum.MOVE_WEST:
-            move.x = -1;
-            break;
-        case PlayerActionEnum.MOVE_NW:
-            move.x = -1;
-            move.y = -1;
-            break;
-        case PlayerActionEnum.MOVE_NE:
-            move.x = 1;
-            move.y = -1;
-            break;
-        case PlayerActionEnum.MOVE_SW:
-            move.x = -1;
-            move.y = 1;
-            break;
-        case PlayerActionEnum.MOVE_SE:
-            move.x = 1;
-            move.y = 1;
-            break;
-        default: break;
-    }
-    return move;
+export let convertActionToPosition = function (
+  action: PlayerActionEnum
+): Core.Position {
+  let move: Core.Position = new Core.Position(0, 0);
+  switch (action) {
+    case PlayerActionEnum.MOVE_NORTH:
+      move.y = -1;
+      break;
+    case PlayerActionEnum.MOVE_SOUTH:
+      move.y = 1;
+      break;
+    case PlayerActionEnum.MOVE_EAST:
+      move.x = 1;
+      break;
+    case PlayerActionEnum.MOVE_WEST:
+      move.x = -1;
+      break;
+    case PlayerActionEnum.MOVE_NW:
+      move.x = -1;
+      move.y = -1;
+      break;
+    case PlayerActionEnum.MOVE_NE:
+      move.x = 1;
+      move.y = -1;
+      break;
+    case PlayerActionEnum.MOVE_SW:
+      move.x = -1;
+      move.y = 1;
+      break;
+    case PlayerActionEnum.MOVE_SE:
+      move.x = 1;
+      move.y = 1;
+      break;
+    default:
+      break;
+  }
+  return move;
 };
 
 /**
@@ -153,38 +161,43 @@ export let convertActionToPosition = function(action: PlayerActionEnum): Core.Po
  * applied to actor1 = orc, actor2 = axe, value1 = 5 :
  * The orc hits with an axe for 5 points.
  */
-export let transformMessage = function(text: string, actor1: Actor, actor2?: Actor,
-                                       value1?: number, value2?: number): string {
-    let newText = text;
-    if ( actor1) {
-        newText = newText.replace(/\[The actor1\'s\] /g, actor1.getThenames());
-        newText = newText.replace(/ \[the actor1\'s\] /g, actor1.getthenames());
-        newText = newText.replace(/\[The actor1\]/g, actor1.getThename());
-        newText = newText.replace(/ \[the actor1\]/g, actor1.getthename());
-        newText = newText.replace(/\[A actor1\]/g, actor1.getAname());
-        newText = newText.replace(/ \[a actor1\]/g, actor1.getaname());
-        newText = newText.replace(/\[s\]/g, actor1.getVerbEnd());
-        newText = newText.replace(/ \[it\]/g, actor1.getit());
-        newText = newText.replace(/ \[its\] /g, actor1.getits());
-        newText = newText.replace(/ \[is\]/g, actor1.getis());
-    }
-    if (actor2) {
-        newText = newText.replace(/\[The actor2\'s\] /g, actor2.getThenames());
-        newText = newText.replace(/ \[the actor2\'s\] /g, actor2.getthenames());
-        newText = newText.replace(/\[The actor2\]/g, actor2.getThename());
-        newText = newText.replace(/ \[the actor2\]/g, actor2.getthename());
-        newText = newText.replace(/\[A actor2\]/g, actor2.getAname());
-        newText = newText.replace(/ \[a actor2\]/g, actor2.getaname());
-        newText = newText.replace(/\[s2\]/g, actor2.getVerbEnd());
-        newText = newText.replace(/ \[it2\]/g, actor2.getit());
-        newText = newText.replace(/ \[its2\] /g, actor2.getits());
-        newText = newText.replace(/ \[is2\]/g, actor2.getis());
-    }
-    if (value1 !== undefined) {
-        newText = newText.replace(/\[value1\]/g, "" + value1);
-    }
-    if (value2 !== undefined) {
-        newText = newText.replace(/\[value2\]/g, "" + value2);
-    }
-    return newText;
+export let transformMessage = function (
+  text: string,
+  actor1: Actor,
+  actor2?: Actor,
+  value1?: number,
+  value2?: number
+): string {
+  let newText = text;
+  if (actor1) {
+    newText = newText.replace(/\[The actor1\'s\] /g, actor1.getThenames());
+    newText = newText.replace(/ \[the actor1\'s\] /g, actor1.getthenames());
+    newText = newText.replace(/\[The actor1\]/g, actor1.getThename());
+    newText = newText.replace(/ \[the actor1\]/g, actor1.getthename());
+    newText = newText.replace(/\[A actor1\]/g, actor1.getAname());
+    newText = newText.replace(/ \[a actor1\]/g, actor1.getaname());
+    newText = newText.replace(/\[s\]/g, actor1.getVerbEnd());
+    newText = newText.replace(/ \[it\]/g, actor1.getit());
+    newText = newText.replace(/ \[its\] /g, actor1.getits());
+    newText = newText.replace(/ \[is\]/g, actor1.getis());
+  }
+  if (actor2) {
+    newText = newText.replace(/\[The actor2\'s\] /g, actor2.getThenames());
+    newText = newText.replace(/ \[the actor2\'s\] /g, actor2.getthenames());
+    newText = newText.replace(/\[The actor2\]/g, actor2.getThename());
+    newText = newText.replace(/ \[the actor2\]/g, actor2.getthename());
+    newText = newText.replace(/\[A actor2\]/g, actor2.getAname());
+    newText = newText.replace(/ \[a actor2\]/g, actor2.getaname());
+    newText = newText.replace(/\[s2\]/g, actor2.getVerbEnd());
+    newText = newText.replace(/ \[it2\]/g, actor2.getit());
+    newText = newText.replace(/ \[its2\] /g, actor2.getits());
+    newText = newText.replace(/ \[is2\]/g, actor2.getis());
+  }
+  if (value1 !== undefined) {
+    newText = newText.replace(/\[value1\]/g, "" + value1);
+  }
+  if (value2 !== undefined) {
+    newText = newText.replace(/\[value2\]/g, "" + value2);
+  }
+  return newText;
 };
